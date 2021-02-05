@@ -27,4 +27,4 @@ jobs:
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
-        run: gh release create test-release test.txt --prerelease --title 'Test release snapshot'  
+        run: gh release create test-release test-release-snapshot --prerelease --title 'Test release snapshot'  

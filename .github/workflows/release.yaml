@@ -33,4 +33,4 @@ jobs:
         run: tar -czvf hash.tar.gz hash.sha256.txt
 
       - name: Create release
-        run: gh release create test-release release.txt hash.tar.gz --prerelease --title 'Test release'  
+        run: gh release create test-release release.txt hash.sha256.tgz --prerelease --title 'Test release'  

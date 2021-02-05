@@ -24,7 +24,12 @@ jobs:
           sudo apt install gh
 
       - name: Configure GitHub CLI
-        run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}    
+        run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}  
+        
+      - name: Delete release
+        run: |
+          gh release delete test-release -y
+          git push --delete origin test-release
 
       - name: Create sha-256
         run: sha256sum release.txt > hash.sha256.txt

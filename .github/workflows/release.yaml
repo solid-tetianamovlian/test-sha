@@ -31,5 +31,11 @@ jobs:
           gh release delete test-release -y
           git push --delete origin test-release
 
+      - name: Create sha-256
+        run: sha256sum test.txt > hash.sha256.txt
+
+      - name: Create archive
+        run: tar -czvf hash.tar.gz.sha256 hash.sha256.txt
+
       - name: Create release
-        run: gh release create test-release test.txt --prerelease --title 'Test release snapshot'  
+        run: gh release create test-release test.txt hash.tar.gz.sha256 --prerelease --title 'Test release'  

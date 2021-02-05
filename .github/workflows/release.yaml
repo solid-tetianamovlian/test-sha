@@ -26,5 +26,10 @@ jobs:
       - name: Configure GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Delete release
+        run: |
+          gh release delete test-release -y
+          git push --delete origin test-release
+
       - name: Create release
         run: gh release create test-release test.txt --prerelease --title 'Test release snapshot'  

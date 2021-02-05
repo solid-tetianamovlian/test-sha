@@ -27,7 +27,7 @@ jobs:
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}    
 
       - name: Create sha-256
-        run: sha256sum test.txt > hash.sha256.txt
+        run: sha256sum release.txt > hash.sha256.txt
 
       - name: Create archive
         run: tar -czvf hash.tar.gz hash.sha256.txt

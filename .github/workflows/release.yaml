@@ -35,7 +35,7 @@ jobs:
         run: sha256sum test.txt > hash.sha256.txt
 
       - name: Create archive
-        run: tar -czvf hash.tar.gz.sha256 hash.sha256.txt
+        run: tar -czvf hash.tar.gz hash.sha256.txt
 
       - name: Create release
-        run: gh release create test-release test.txt hash.tar.gz.sha256 --prerelease --title 'Test release'  
+        run: gh release create test-release test.txt hash.tar.gz --prerelease --title 'Test release'  

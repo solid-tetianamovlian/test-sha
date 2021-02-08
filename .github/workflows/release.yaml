@@ -5,6 +5,29 @@ on:
     branches: master    
 
 jobs:
+  linux-generate-sha-actions:
+    name: Generate SHA Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref }}
+
+      - name: Create archive
+        run: tar -czvf ci_integrations_linux.tgz ci_integrations_linux
+      
+      - name: Generate SHA-256 
+        run: shasum -a 256 ci_integrations_linux.tgz > ci_integrations_linux.tgz.sha256
+
+      - name: Upload SHA-256 Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ci_integrations_linux.tgz.sha256
+          path: ci_integrations_linux.tgz.sha256
+          if-no-files-found: error
+
   release-actions:
     name: Release Actions
     runs-on: ubuntu-latest
@@ -31,11 +54,5 @@ jobs:
           gh release delete test-release -y
           git push --delete origin test-release   
 
-      - name: Create sha-256
-        run: sha256sum release.txt > release.sha256
-
-      - name: Create archive
-        run: tar -czvf release.tgz.sha256 release.sha256
-
       - name: Create release
-        run: gh release create test-release release.txt release.tgz.sha256 --prerelease --title 'Test release'
+        run: gh release create test-release ci_integrations_linux ci_integrations_linux.tgz.sha256 release.tgz.sha256 --prerelease --title 'Test release'

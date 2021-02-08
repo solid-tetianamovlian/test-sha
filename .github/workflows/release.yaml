@@ -48,7 +48,13 @@ jobs:
           sudo apt install gh
 
       - name: Configure GitHub CLI
-        run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}   
+        run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}  
+
+      - name: Download SHA-256 Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ci_integrations_linux.tgz.sha256
+          path: folder/ci_integrations_linux.tgz.sha256
 
       - name: Create release
         run: gh release create test-release folder/ci_integrations_linux folder/ci_integrations_linux.tgz.sha256 --prerelease --title 'Test release'

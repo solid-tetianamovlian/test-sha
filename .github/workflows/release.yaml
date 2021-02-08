@@ -19,7 +19,7 @@ jobs:
         run: tar -czvf folder/ci_integrations_linux.tgz folder/ci_integrations_linux
       
       - name: Generate SHA-256 
-        rrun: shasum folder/ci_integrations_linux.tgz > folder/ci_integrations_linux.tgz.sha256
+        run: shasum folder/ci_integrations_linux.tgz > folder/ci_integrations_linux.tgz.sha256
 
       - name: Upload SHA-256 Artifact
         uses: actions/upload-artifact@v2

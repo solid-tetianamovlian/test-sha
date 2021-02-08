@@ -25,14 +25,17 @@ jobs:
 
       - name: Configure GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}  
-        
-      
+
+      - name: Delete release
+        run: |
+          gh release delete test-release -y
+          git push --delete origin test-release   
 
       - name: Create sha-256
-        run: sha256sum release.txt > hash.sha256.txt
+        run: sha256sum release.txt > release.sha256
 
       - name: Create archive
-        run: tar -czvf hash.sha256.tgz hash.sha256.txt
+        run: tar -czvf release.tgz.sha256 release.sha256
 
       - name: Create release
-        run: gh release create test-release release.txt hash.sha256.tgz --prerelease --title 'Test release'
+        run: gh release create test-release release.txt release.tgz.sha256 --prerelease --title 'Test release'

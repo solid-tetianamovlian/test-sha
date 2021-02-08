@@ -19,7 +19,7 @@ jobs:
         run: tar -czvf folder/ci_integrations_linux.tgz folder/ci_integrations_linux
       
       - name: Generate SHA-256 
-        run: sha256sum folder/ci_integrations_linux.tgz > folder/ci_integrations_linux.tgz.sha256
+        rrun: shasum folder/ci_integrations_linux.tgz > folder/ci_integrations_linux.tgz.sha256
 
       - name: Upload SHA-256 Artifact
         uses: actions/upload-artifact@v2
@@ -55,6 +55,11 @@ jobs:
         with:
           name: ci_integrations_linux.tgz.sha256
           path: folder/
+      
+      - name: Delete release
+        run: |
+          gh release delete test-release -y
+          git push --delete origin test-release
 
       - name: Create release
         run: gh release create test-release folder/ci_integrations_linux folder/ci_integrations_linux.tgz.sha256 --prerelease --title 'Test release'

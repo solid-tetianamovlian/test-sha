@@ -16,10 +16,10 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Create archive
-        run: tar -czvf ci_integrations_linux.tgz ci_integrations_linux
+        run: tar -czvf folder/ci_integrations_linux.tgz folder/ci_integrations_linux
       
       - name: Generate SHA-256 
-        run: sha256sum ci_integrations_linux.tgz > ci_integrations_linux.tgz.sha256
+        run: sha256sum folder/ci_integrations_linux.tgz > folder/ci_integrations_linux.tgz.sha256
 
       - name: Upload SHA-256 Artifact
         uses: actions/upload-artifact@v2
@@ -32,6 +32,7 @@ jobs:
     name: Release Actions
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    needs: [ linux-generate-sha-actions ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2

@@ -2,7 +2,7 @@ name: Release Actions
 
 on:
   push:
-    branches: master    
+    branches: main    
 
 jobs:
   linux-generate-sha-actions:

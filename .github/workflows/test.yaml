@@ -21,6 +21,6 @@ jobs:
       - name: Upload SHA-256 Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ci_integrations_linux1.sha256
-          path: folder/ci_integrations_linux1.sha256
+          name: ci_integrations_linux.sha256
+          path: folder/ci_integrations_linux.sha256
           if-no-files-found: error
